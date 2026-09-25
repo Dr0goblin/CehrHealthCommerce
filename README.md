@@ -148,4 +148,4 @@ NepalMediHub/
 
 ---
 
-*Built for CSC381 (E-Commerce), BSc CSIT — Tribhuvan University syllabus. For academic use.*
+*Built for CSC381 (E-Commerce), BSc CSIT — Tribhuvan University syllabus. For academic use By Biraj Bhatta, Lila Katuwal and Basant Raj Kadel.*
