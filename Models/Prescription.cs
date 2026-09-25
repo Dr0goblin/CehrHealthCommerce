@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 /// <summary>
 /// Minimal prescription record. Designed so a full pharmacist-verification workflow can be

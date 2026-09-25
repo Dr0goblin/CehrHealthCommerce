@@ -1,9 +1,9 @@
-using CehrHealthCommerce.Common;
-using CehrHealthCommerce.Data;
-using CehrHealthCommerce.Models;
+using NepalMediHub.Common;
+using NepalMediHub.Data;
+using NepalMediHub.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 public class ProductService : IProductService
 {
@@ -82,9 +82,7 @@ public class ProductService : IProductService
             .Take(count)
             .ToListAsync();
 
-    // ---------------------------------------------------------------------
-    // Admin operations
-    // ---------------------------------------------------------------------
+// Admin operations
 
     public async Task<IReadOnlyList<Product>> GetAllForAdminAsync(string? search = null)
     {

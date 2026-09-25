@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 /// <summary>
 /// Product category. Supports a single level of sub-categories via <see cref="ParentCategoryId"/>.

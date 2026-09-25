@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 
-namespace CehrHealthCommerce.ViewModels.Admin;
+namespace NepalMediHub.ViewModels.Admin;
 
 /// <summary>Create/edit form for a category in the admin panel.</summary>
 public class CategoryFormViewModel

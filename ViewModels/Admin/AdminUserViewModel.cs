@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.ViewModels.Admin;
+namespace NepalMediHub.ViewModels.Admin;
 
 /// <summary>Row in the admin user list.</summary>
 public class AdminUserViewModel

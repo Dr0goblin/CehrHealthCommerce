@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>Result of a (future) attempt to link a citizen to the national CEHR.</summary>
 public record CehrLinkResult(bool Success, string Message);

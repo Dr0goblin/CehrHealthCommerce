@@ -1,8 +1,8 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CehrHealthCommerce.ViewComponents;
+namespace NepalMediHub.ViewComponents;
 
 /// <summary>
 /// Reusable recommendation widget. Given a product id, it uses the content-based

@@ -1,7 +1,7 @@
-using CehrHealthCommerce.Data;
+using NepalMediHub.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// Local, simulated citizen identity service. It validates NID format and uniqueness against

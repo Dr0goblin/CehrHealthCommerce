@@ -1,10 +1,11 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
-namespace CehrHealthCommerce.Controllers;
+namespace NepalMediHub.Controllers;
 
 /// <summary>
 /// Drives the eSewa sandbox payment flow:
@@ -38,6 +39,7 @@ public class PaymentController : Controller
 
     /// <summary>Renders an auto-submitting form that POSTs the signed order to eSewa.</summary>
     [HttpGet]
+    [EnableRateLimiting("payment")]
     public async Task<IActionResult> Pay(int orderId)
     {
         // Ownership check — a user can only pay for their own order.

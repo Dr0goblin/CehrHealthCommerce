@@ -1,9 +1,9 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CehrHealthCommerce.Areas.Admin.Controllers;
+namespace NepalMediHub.Areas.Admin.Controllers;
 
 /// <summary>Admin order management: view all orders, drill into details, update status.</summary>
 [Area("Admin")]

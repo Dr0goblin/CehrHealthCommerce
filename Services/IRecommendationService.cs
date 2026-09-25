@@ -1,6 +1,6 @@
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>Product recommendation seam. See <see cref="ContentBasedRecommendationService"/>.</summary>
 public interface IRecommendationService

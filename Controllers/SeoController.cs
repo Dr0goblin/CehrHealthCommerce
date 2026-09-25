@@ -1,8 +1,8 @@
 using System.Text;
-using CehrHealthCommerce.Services;
+using NepalMediHub.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CehrHealthCommerce.Controllers;
+namespace NepalMediHub.Controllers;
 
 /// <summary>
 /// Serves SEO infrastructure endpoints — an XML sitemap and robots.txt.

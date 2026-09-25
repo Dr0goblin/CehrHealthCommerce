@@ -1,10 +1,10 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CehrHealthCommerce.Controllers;
+namespace NepalMediHub.Controllers;
 
 [Authorize]
 public class CartController : Controller

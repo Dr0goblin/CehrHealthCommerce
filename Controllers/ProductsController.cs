@@ -1,9 +1,9 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
-using CehrHealthCommerce.ViewModels;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
+using NepalMediHub.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CehrHealthCommerce.Controllers;
+namespace NepalMediHub.Controllers;
 
 [Route("products")]
 public class ProductsController : Controller
@@ -46,7 +46,7 @@ public class ProductsController : Controller
     public async Task<IActionResult> Categories()
     {
         var categories = await _categories.GetTopLevelWithChildrenAsync();
-        ViewData["MetaDescription"] = "Browse product categories at CEHR Health — medicines, medical equipment and health products.";
+        ViewData["MetaDescription"] = "Browse product categories at Nepal MediHub — medicines, medical equipment and health products.";
         return View(categories);
     }
 
@@ -61,7 +61,7 @@ public class ProductsController : Controller
 
         var vm = await BuildListModel(category.Name, null, slug, "Category", q, sort, page, category.Description);
         vm.CategorySlug = slug;
-        ViewData["MetaDescription"] = category.Description ?? $"Shop {category.Name} at CEHR Health.";
+        ViewData["MetaDescription"] = category.Description ?? $"Shop {category.Name} at Nepal MediHub.";
         return View("List", vm);
     }
 
@@ -103,7 +103,7 @@ public class ProductsController : Controller
             Page = page
         });
 
-        var categories = await _categories.GetActiveAsync();
+        var categories = await _categories.GetActiveCategoriesWithProductsAsync();
 
         return new ProductListViewModel
         {
@@ -126,6 +126,6 @@ public class ProductsController : Controller
             var d = p.Description!.Trim();
             return d.Length > 160 ? d[..157] + "..." : d;
         }
-        return $"Buy {p.Name} online at CEHR Health.";
+        return $"Buy {p.Name} online at Nepal MediHub.";
     }
 }

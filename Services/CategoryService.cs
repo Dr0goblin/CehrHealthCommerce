@@ -1,9 +1,9 @@
-using CehrHealthCommerce.Common;
-using CehrHealthCommerce.Data;
-using CehrHealthCommerce.Models;
+using NepalMediHub.Common;
+using NepalMediHub.Data;
+using NepalMediHub.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 public class CategoryService : ICategoryService
 {
@@ -14,6 +14,12 @@ public class CategoryService : ICategoryService
     public async Task<IReadOnlyList<Category>> GetActiveAsync()
         => await _db.Categories
             .Where(c => c.IsActive)
+            .OrderBy(c => c.Name)
+            .ToListAsync();
+
+    public async Task<IReadOnlyList<Category>> GetActiveCategoriesWithProductsAsync()
+        => await _db.Categories
+            .Where(c => c.IsActive && c.Products.Any(p => p.IsActive))
             .OrderBy(c => c.Name)
             .ToListAsync();
 
@@ -29,9 +35,7 @@ public class CategoryService : ICategoryService
             .Include(c => c.Children)
             .FirstOrDefaultAsync(c => c.Slug == slug && c.IsActive);
 
-    // ---------------------------------------------------------------------
-    // Admin operations
-    // ---------------------------------------------------------------------
+// Admin operations
 
     public async Task<IReadOnlyList<Category>> GetAllForAdminAsync()
         => await _db.Categories

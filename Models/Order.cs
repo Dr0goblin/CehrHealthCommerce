@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 /// <summary>A customer order. The delivery address is snapshotted at order time.</summary>
 public class Order
@@ -44,6 +44,12 @@ public class Order
 
     [StringLength(10)]
     public string? PostalCode { get; set; }
+
+    [StringLength(100)]
+    public string? PatientHealthId { get; set; }
+
+    [StringLength(500)]
+    public string? PrescriptionFileUrl { get; set; }
 
     // Navigation
     public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();

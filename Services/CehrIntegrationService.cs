@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// Stub implementation of the CEHR integration seam. Returns "not enabled" for every call.

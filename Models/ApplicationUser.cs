@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 /// <summary>
 /// Application user extending ASP.NET Core Identity.
@@ -13,6 +13,8 @@ public class ApplicationUser : IdentityUser
 
     /// <summary>Simulated National ID. Unique per citizen. Stored locally only.</summary>
     public string NID { get; set; } = string.Empty;
+
+    public string? PatientHealthId { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

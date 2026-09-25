@@ -1,12 +1,12 @@
-using CehrHealthCommerce.Data;
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
-using CehrHealthCommerce.ViewModels;
+using NepalMediHub.Data;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
+using NepalMediHub.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CehrHealthCommerce.Controllers;
+namespace NepalMediHub.Controllers;
 
 /// <summary>
 /// Checkout: collects delivery details, then places the order from the cart.

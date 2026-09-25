@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>Outcome of a cart mutation, used to surface a user-friendly message.</summary>
 public record CartActionResult(bool Success, string Message)

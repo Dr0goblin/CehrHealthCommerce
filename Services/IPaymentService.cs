@@ -1,6 +1,6 @@
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// Abstraction over the payment gateway so controllers never depend on eSewa

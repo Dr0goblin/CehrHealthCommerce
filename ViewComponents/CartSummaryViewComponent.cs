@@ -1,9 +1,9 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CehrHealthCommerce.ViewComponents;
+namespace NepalMediHub.ViewComponents;
 
 /// <summary>Renders the navbar cart link with a live item-count badge.</summary>
 public class CartSummaryViewComponent : ViewComponent

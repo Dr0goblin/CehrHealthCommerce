@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 /// <summary>High-level product grouping used for navigation, SEO routes and recommendations.</summary>
 public enum ProductType

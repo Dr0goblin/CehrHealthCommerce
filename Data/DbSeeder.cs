@@ -1,9 +1,9 @@
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CehrHealthCommerce.Data;
+namespace NepalMediHub.Data;
 
 /// <summary>
 /// Applies migrations and seeds baseline data: roles, a demo admin and a demo customer.
@@ -15,11 +15,19 @@ public static class DbSeeder
     public const string AdminRole = "Admin";
     public const string CustomerRole = "Customer";
 
-    public const string AdminEmail = "admin@cehrhealth.local";
+    public const string AdminEmail = "admin@nepalmedihub.local";
     public const string AdminPassword = "Admin@123";
 
-    public const string CustomerEmail = "customer@cehrhealth.local";
+    public const string CustomerEmail = "customer@nepalmedihub.local";
     public const string CustomerPassword = "Customer@123";
+
+    // Login addresses earlier versions of this seeder used, so an existing development
+    // database can be brought up to date without colliding on the unique NID.
+    private static readonly HashSet<string> LegacySeededEmails = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "admin@cehrhealth.local",
+        "customer@cehrhealth.local"
+    };
 
     public static async Task SeedAsync(IServiceProvider services)
     {
@@ -54,6 +62,23 @@ public static class DbSeeder
     {
         if (await userManager.FindByEmailAsync(email) is not null)
         {
+            return;
+        }
+
+        // NID is the unique identity, the email is only a login handle. If the NID is already
+        // taken, a previous version of the seeder created this account under an older address,
+        // so rename it in place instead of inserting a second row that would violate the unique
+        // index on NID. A NID held by an account we did not seed is left alone.
+        var existing = await userManager.Users.FirstOrDefaultAsync(u => u.NID == nid);
+        if (existing is not null)
+        {
+            if (LegacySeededEmails.Contains(existing.Email ?? string.Empty))
+            {
+                existing.Email = email;
+                existing.UserName = email;
+                await userManager.UpdateAsync(existing);
+            }
+
             return;
         }
 

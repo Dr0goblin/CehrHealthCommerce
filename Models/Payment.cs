@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 /// <summary>Payment record for an order (one-to-one). Uses sandbox gateway only.</summary>
 public class Payment

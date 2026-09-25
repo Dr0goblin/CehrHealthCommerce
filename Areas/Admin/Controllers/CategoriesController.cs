@@ -1,10 +1,10 @@
-using CehrHealthCommerce.Services;
-using CehrHealthCommerce.ViewModels.Admin;
+using NepalMediHub.Services;
+using NepalMediHub.ViewModels.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CehrHealthCommerce.Areas.Admin.Controllers;
+namespace NepalMediHub.Areas.Admin.Controllers;
 
 /// <summary>Admin category management: list, create, edit, activate/deactivate.</summary>
 [Area("Admin")]

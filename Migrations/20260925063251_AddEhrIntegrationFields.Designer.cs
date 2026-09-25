@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace NepalMediHub.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260921042721_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260925063251_AddEhrIntegrationFields")]
+    partial class AddEhrIntegrationFields
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "10.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -136,6 +136,9 @@ namespace NepalMediHub.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientHealthId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -301,6 +304,10 @@ namespace NepalMediHub.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<string>("PatientHealthId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("PaymentStatus")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -314,6 +321,10 @@ namespace NepalMediHub.Migrations
                     b.Property<string>("PostalCode")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("PrescriptionFileUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Province")
                         .IsRequired()

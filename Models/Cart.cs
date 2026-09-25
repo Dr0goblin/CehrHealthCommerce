@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 /// <summary>A user's active shopping cart (one per user).</summary>
 public class Cart

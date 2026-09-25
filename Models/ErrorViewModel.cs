@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 public class ErrorViewModel
 {

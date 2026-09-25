@@ -1,7 +1,7 @@
-using CehrHealthCommerce.Common;
-using CehrHealthCommerce.Models;
+using NepalMediHub.Common;
+using NepalMediHub.Models;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 public interface IProductService
 {

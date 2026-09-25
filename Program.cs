@@ -1,21 +1,19 @@
-using CehrHealthCommerce.Data;
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
+using NepalMediHub.Data;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ---------------------------------------------------------------------------
 // Database (EF Core + SQL Server)
-// ---------------------------------------------------------------------------
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ---------------------------------------------------------------------------
 // ASP.NET Core Identity (roles: Admin, Customer)
-// ---------------------------------------------------------------------------
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>(options =>
     {
@@ -49,9 +47,66 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-// ---------------------------------------------------------------------------
+// Rate limiting (throttles brute-force and endpoint abuse before a request
+// ever reaches a controller or the database).
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    // A sliding window over the whole IP: generous for normal browsing, but it
+    // caps how fast one client can hammer any endpoint.
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(ctx =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 300,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+
+    // Tighter windows on the endpoints worth protecting specifically. AddPolicy takes a
+    // per-request partitioner, so each client gets its own bucket.
+    options.AddPolicy("login", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+
+    options.AddPolicy("register", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 5,
+                Window = TimeSpan.FromMinutes(10),
+                QueueLimit = 0
+            }));
+
+    options.AddPolicy("payment", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 20,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+
+    options.OnRejected = async (context, cancellationToken) =>
+    {
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        await context.HttpContext.Response.WriteAsJsonAsync(
+            new { error = "Too many requests. Please slow down and try again shortly." },
+            cancellationToken);
+    };
+});
+
 // Application services (registered as they are introduced across phases)
-// ---------------------------------------------------------------------------
 builder.Services.AddScoped<ICitizenIdentityService, CitizenIdentityService>();
 builder.Services.AddScoped<ICehrIntegrationService, CehrIntegrationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -76,9 +131,7 @@ builder.Services.AddControllersWithViews(options =>
 
 var app = builder.Build();
 
-// ---------------------------------------------------------------------------
 // Security response headers (applied to every response).
-// ---------------------------------------------------------------------------
 app.Use(async (context, next) =>
 {
     var headers = context.Response.Headers;
@@ -104,9 +157,7 @@ app.Use(async (context, next) =>
     await next();
 });
 
-// ---------------------------------------------------------------------------
 // HTTP request pipeline
-// ---------------------------------------------------------------------------
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -117,6 +168,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Rate limiting must sit after UseRouting so endpoint metadata is available.
+app.UseRateLimiter();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -130,9 +184,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// ---------------------------------------------------------------------------
 // Apply migrations and seed roles, demo users and catalog data at startup.
-// ---------------------------------------------------------------------------
 using (var scope = app.Services.CreateScope())
 {
     await DbSeeder.SeedAsync(scope.ServiceProvider);

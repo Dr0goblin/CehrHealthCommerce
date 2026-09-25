@@ -1,4 +1,4 @@
-# Security Implementation & Test Matrix — CEHR Health E-Commerce
+# Security Implementation & Test Matrix — Nepal MediHub
 
 This document is the evidence for **Area 5: Security Testing** of the CSC381 project.
 It lists the security controls built into the application, where each one lives in the
@@ -31,6 +31,8 @@ source code, and a repeatable manual test for each.
 | 15 | Malicious file upload | Product image upload restricts extension (jpg/jpeg/png/webp/gif) and size (≤ 2 MB); files are saved with a generated GUID name. | `Areas/Admin/Controllers/ProductsController` |
 | 16 | Over-posting / mass assignment | Controllers bind to dedicated ViewModels, not EF entities directly, for create/edit forms. | `ViewModels/Admin/*`, `CheckoutViewModel` |
 | 17 | Brute-force / self lock-out | Admin accounts cannot be locked from the Users screen (prevents locking the only admin out). | `Areas/Admin/Controllers/UsersController` |
+| 18 | API-level IDOR (medical history) | The medical-history endpoint takes **no** user identifier; the subject is read from the signed-in principal. An authenticated user cannot read another citizen's NID or purchase history. | `Controllers/ApiController.cs` |
+| 19 | Credential / resource flooding | Fixed-window rate limiting: a global **300 req/min per IP** budget, plus tighter per-endpoint policies — `login` **10/min**, `register` **5 per 10 min**, `payment` **20/min**. Excess requests get **429**. | `Program.cs`, `AccountController`, `PaymentController` |
 
 ---
 
@@ -52,6 +54,8 @@ Run these against the app on `https://localhost:<port>`. Expected results confir
 | T10 — Security headers | Inspect any response headers (dev tools → Network) | `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Content-Security-Policy` present. |
 | T11 — File upload filter | In admin, try to upload a `.exe` (or a 5 MB image) as a product image | Rejected with a validation message. |
 | T12 — Error handling | Trigger an error in production mode | Generic error page shown; no stack trace / no SQL details. |
+| T13 — Login rate limit | POST to `/Account/Login` more than 10 times in a minute from one IP | First 10 are processed; the rest return **429 Too Many Requests**. |
+| T14 — Medical-history IDOR | While logged in as user B, request `/api/user/me/medical-history` | Returns **only B's own** records. Requesting someone else's id is not possible — the route accepts no id, and the old `/api/user/{id}/medical-history` shape now returns **404**. |
 
 ---
 

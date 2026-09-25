@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 /// <summary>A sellable health product (medicine, medical equipment or general health product).</summary>
 public class Product

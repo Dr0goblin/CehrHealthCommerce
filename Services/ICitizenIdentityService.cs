@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// Represents the citizen identity layer. In this project the NID is SIMULATED and stored

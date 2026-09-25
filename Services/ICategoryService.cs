@@ -1,11 +1,12 @@
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 public interface ICategoryService
 {
     // --- Customer-facing reads ---
     Task<IReadOnlyList<Category>> GetActiveAsync();
+    Task<IReadOnlyList<Category>> GetActiveCategoriesWithProductsAsync();
     Task<IReadOnlyList<Category>> GetTopLevelWithChildrenAsync();
     Task<Category?> GetBySlugAsync(string slug);
 

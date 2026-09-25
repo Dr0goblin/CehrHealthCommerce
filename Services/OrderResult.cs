@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// Result of an order-placement attempt. Carries either the created order

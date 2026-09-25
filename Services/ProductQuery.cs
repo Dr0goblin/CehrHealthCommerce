@@ -1,6 +1,6 @@
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>Filter/sort/paging options for a product search.</summary>
 public class ProductQuery

@@ -1,6 +1,6 @@
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 
-namespace CehrHealthCommerce.ViewModels;
+namespace NepalMediHub.ViewModels;
 
 public class ProductDetailsViewModel
 {

@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Data;
+namespace NepalMediHub.Data;
 
 /// <summary>
 /// Static Nepal province/district reference data for address dropdowns.

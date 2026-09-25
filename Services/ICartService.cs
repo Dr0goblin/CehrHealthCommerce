@@ -1,7 +1,7 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.ViewModels;
+using NepalMediHub.Models;
+using NepalMediHub.ViewModels;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 public interface ICartService
 {

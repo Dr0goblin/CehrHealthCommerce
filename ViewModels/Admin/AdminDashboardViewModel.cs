@@ -1,6 +1,6 @@
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 
-namespace CehrHealthCommerce.ViewModels.Admin;
+namespace NepalMediHub.ViewModels.Admin;
 
 /// <summary>Aggregated figures and recent activity for the admin dashboard.</summary>
 public class AdminDashboardViewModel

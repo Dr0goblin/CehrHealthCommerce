@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace CehrHealthCommerce.Common;
+namespace NepalMediHub.Common;
 
 /// <summary>Converts free text into a lowercase, URL-friendly slug (e.g. "Pain Relief" → "pain-relief").</summary>
 public static class SlugHelper

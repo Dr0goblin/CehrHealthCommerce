@@ -1,8 +1,8 @@
-using CehrHealthCommerce.Data;
-using CehrHealthCommerce.Models;
+using NepalMediHub.Data;
+using NepalMediHub.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// Simple content-based recommender: suggests products that share the same

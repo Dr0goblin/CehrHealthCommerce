@@ -1,12 +1,12 @@
-using CehrHealthCommerce.Data;
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.ViewModels.Admin;
+using NepalMediHub.Data;
+using NepalMediHub.Models;
+using NepalMediHub.ViewModels.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CehrHealthCommerce.Areas.Admin.Controllers;
+namespace NepalMediHub.Areas.Admin.Controllers;
 
 /// <summary>
 /// Admin dashboard landing page. The whole Admin area is restricted to the Admin role;

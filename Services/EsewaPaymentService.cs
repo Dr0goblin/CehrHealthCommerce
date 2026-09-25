@@ -2,10 +2,10 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 using Microsoft.Extensions.Options;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// eSewa ePay v2 <b>sandbox</b> integration.

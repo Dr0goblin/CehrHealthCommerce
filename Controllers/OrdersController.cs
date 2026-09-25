@@ -1,10 +1,10 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CehrHealthCommerce.Controllers;
+namespace NepalMediHub.Controllers;
 
 /// <summary>
 /// Customer-facing order history. Every query is scoped to the signed-in user's id,
@@ -46,5 +46,31 @@ public class OrdersController : Controller
         var order = await _orders.GetForUserAsync(UserId, id);
         if (order is null) return NotFound();
         return View(order);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Invoice(int id)
+    {
+        var order = await _orders.GetForUserAsync(UserId, id);
+        if (order is null) return NotFound();
+        return View(order);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Cancel(int id)
+    {
+        var result = await _orders.CancelOrderAsync(UserId, id);
+
+        if (result.success)
+        {
+            TempData["Success"] = "Order cancelled successfully. Stock has been restored.";
+        }
+        else
+        {
+            TempData["Error"] = result.error ?? "Unable to cancel order.";
+        }
+
+        return RedirectToAction(nameof(Details), new { id });
     }
 }

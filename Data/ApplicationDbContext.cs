@@ -1,9 +1,9 @@
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CehrHealthCommerce.Data;
+namespace NepalMediHub.Data;
 
 /// <summary>
 /// EF Core database context. Inherits Identity tables and adds the domain model.

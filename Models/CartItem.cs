@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CehrHealthCommerce.Models;
+namespace NepalMediHub.Models;
 
 /// <summary>A line in a shopping cart. Subtotals are computed server-side from the live product price.</summary>
 public class CartItem

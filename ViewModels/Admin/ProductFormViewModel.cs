@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using CehrHealthCommerce.Models;
+using NepalMediHub.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace CehrHealthCommerce.ViewModels.Admin;
+namespace NepalMediHub.ViewModels.Admin;
 
 /// <summary>Create/edit form for a product in the admin panel.</summary>
 public class ProductFormViewModel

@@ -19,7 +19,7 @@
     <div class="text-center py-5">
         <i class="bi bi-cart-x text-muted" style="font-size:4rem;"></i>
         <p class="text-muted mt-3">Your cart is empty.</p>
-        <a asp-controller="Products" asp-action="Index" class="btn btn-brand">Start shopping</a>
+        <a asp-controller="Products" asp-action="Index" class="btn btn-primary-custom">Start shopping</a>
     </div>
 }
 else
@@ -57,7 +57,7 @@ else
                                     <form asp-controller="Cart" asp-action="Update" method="post" class="d-flex gap-1">
                                         <input type="hidden" name="productId" value="@line.ProductId" />
                                         <input type="number" name="quantity" value="@line.Quantity" min="1" max="@line.StockQuantity" class="form-control form-control-sm" style="width:75px;" />
-                                        <button class="btn btn-sm btn-outline-secondary" title="Update quantity"><i class="bi bi-arrow-repeat"></i></button>
+                                        <button class="btn btn-sm btn-primary-custom" title="Update quantity">Update</button>
                                     </form>
                                 </td>
                                 <td class="text-end fw-semibold">Rs. @line.LineTotal.ToString("N2")</td>
@@ -87,7 +87,7 @@ else
                     <div class="d-flex justify-content-between"><span class="text-muted">Items</span><span>@Model.ItemCount</span></div>
                     <div class="d-flex justify-content-between mb-2"><span class="text-muted">Subtotal</span><span class="fw-bold">Rs. @Model.Subtotal.ToString("N2")</span></div>
                     <p class="text-muted small">Delivery charges are calculated at checkout.</p>
-                    <a asp-controller="Checkout" asp-action="Index" class="btn btn-brand w-100">Proceed to checkout</a>
+                    <a asp-controller="Checkout" asp-action="Index" class="btn btn-primary-custom w-100">Proceed to checkout</a>
                 </div>
             </div>
         </div>

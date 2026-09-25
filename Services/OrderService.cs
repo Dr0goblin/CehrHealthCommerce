@@ -1,9 +1,9 @@
-using CehrHealthCommerce.Data;
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.ViewModels;
+using NepalMediHub.Data;
+using NepalMediHub.Models;
+using NepalMediHub.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// EF Core implementation of the order lifecycle. All queries are LINQ-to-Entities
@@ -43,6 +43,8 @@ public class OrderService : IOrderService
         }
 
         var method = NormalizeMethod(paymentMethod);
+
+        var transactionUuid = GenerateTransactionUuid();
 
         // Compute totals from live prices — never from anything the client submitted.
         var subtotal = items.Sum(i => i.Product!.Price * i.Quantity);
@@ -87,7 +89,7 @@ public class OrderService : IOrderService
             Amount = total,
             Method = method,
             PaymentStatus = PaymentStatus.Pending,
-            TransactionUuid = GenerateTransactionUuid(),
+            TransactionUuid = transactionUuid,
             CreatedAt = DateTime.UtcNow
         };
 
@@ -176,12 +178,35 @@ public class OrderService : IOrderService
         return true;
     }
 
+    public async Task<(bool success, string? error)> CancelOrderAsync(string userId, int orderId)
+    {
+        var order = await _db.Orders
+            .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
+            .FirstOrDefaultAsync(o => o.OrderId == orderId && o.UserId == userId);
+
+        if (order is null)
+            return (false, "Order not found.");
+
+        if (order.OrderStatus != OrderStatus.Pending && order.OrderStatus != OrderStatus.Processing)
+            return (false, "Only pending or processing orders can be cancelled.");
+
+        order.OrderStatus = OrderStatus.Cancelled;
+
+        foreach (var item in order.Items.Where(i => i.Product != null))
+        {
+            item.Product!.StockQuantity += item.Quantity;
+        }
+
+        await _db.SaveChangesAsync();
+        return (true, null);
+    }
+
     private static string NormalizeMethod(string? method)
         => string.Equals(method, "cod", StringComparison.OrdinalIgnoreCase)
             ? "Cash on Delivery"
             : "eSewa";
 
-    /// <summary>Generates a unique, gateway-friendly transaction reference.</summary>
     private static string GenerateTransactionUuid()
         => $"CEHR-{DateTime.UtcNow:yyyyMMddHHmmss}-{Guid.NewGuid().ToString("N")[..8]}";
 }

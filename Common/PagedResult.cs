@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Common;
+namespace NepalMediHub.Common;
 
 /// <summary>Generic paged result used by list/search endpoints.</summary>
 public class PagedResult<T>

@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.ViewModels;
+namespace NepalMediHub.ViewModels;
 
 public class CartLineViewModel
 {

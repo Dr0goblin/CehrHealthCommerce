@@ -1,11 +1,11 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.Services;
-using CehrHealthCommerce.ViewModels.Admin;
+using NepalMediHub.Models;
+using NepalMediHub.Services;
+using NepalMediHub.ViewModels.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CehrHealthCommerce.Areas.Admin.Controllers;
+namespace NepalMediHub.Areas.Admin.Controllers;
 
 /// <summary>Admin product management: list, create, edit, image upload, stock update, activate/deactivate.</summary>
 [Area("Admin")]

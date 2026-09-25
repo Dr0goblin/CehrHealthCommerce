@@ -1,7 +1,7 @@
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.ViewModels;
+using NepalMediHub.Models;
+using NepalMediHub.ViewModels;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// Order lifecycle: create an order from the user's cart, read a user's orders,
@@ -28,4 +28,5 @@ public interface IOrderService
     Task<IReadOnlyList<Order>> GetAllAsync();
     Task<Order?> GetByIdAsync(int orderId);
     Task<bool> UpdateStatusAsync(int orderId, OrderStatus status);
+    Task<(bool success, string? error)> CancelOrderAsync(string userId, int orderId);
 }

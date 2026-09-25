@@ -1,9 +1,9 @@
-using CehrHealthCommerce.Data;
-using CehrHealthCommerce.Models;
-using CehrHealthCommerce.ViewModels;
+using NepalMediHub.Data;
+using NepalMediHub.Models;
+using NepalMediHub.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 public class CartService : ICartService
 {

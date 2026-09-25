@@ -1,4 +1,4 @@
-namespace CehrHealthCommerce.Services;
+namespace NepalMediHub.Services;
 
 /// <summary>
 /// Strongly-typed configuration for the eSewa ePay v2 <b>sandbox</b> gateway,
